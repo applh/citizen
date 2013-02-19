@@ -1,0 +1,24 @@
+<form action="#send-message" method="post" id="form-contact">
+   <div class="alpha">* Subject:</div><div class="omega"><input type="text" name="contact_subject" value="Contact" size="60" /></div>
+   <div class="alpha">* Your message:</div><div class="omega"><textarea cols="60" rows="10" name="contact_message">  Hello,
+
+   </textarea></div>
+   <div class="alpha">* Your Email:</div><div class="omega"><input type="text" name="contact_email" size="60" /></div>
+   <noscript>
+      <h6>Javascript needs to be enabled to send messages!</h6>
+   </noscript>
+   <div class="action"><a class="send-message" href="#envoi-message">Send your message</a></div>
+   <div class="ajax-response"></div>
+</form>
+<script type="text/javascript">
+/*<![CDATA[ */
+var send_message=function () {
+   alert("Sending message");
+   parpost={'@form', 1};
+   jQuery("#form-contact .ajax-response").load("/", parpost);
+};
+jQuery(".action .send-message").click(send_message);
+
+/*]]>*/
+</script>
+
