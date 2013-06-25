@@ -203,7 +203,8 @@ class Ctz_system extends Ctz_object
          break;
       case 'cache':
          $sitemd5=basename($this->sitedir);
-         $siteindex=$sitemd5[0];
+         //$siteindex=$sitemd5[0];
+         $siteindex=substr($sitemd5, 0, 3);
          $res=$this->datadir."/cache/$siteindex/$sitemd5";
          //$res=$this->sitedir."/$A/cache";
          break;
@@ -323,7 +324,7 @@ class Ctz_system extends Ctz_object
       // keep monthly files
       $month=date('y-m', $s);
       $log=date('y/m/d.H:i:s.', $s)."$now,$ip,".$_SERVER['REQUEST_URI'].' |'.$_SERVER['HTTP_REFERER'];
-      file_put_contents("$ipdir/$ipnum-$month-access.log", "$log\n", FILE_APPEND);      
+      //file_put_contents("$ipdir/$ipnum-$month-access.log", "$log\n", FILE_APPEND);      
    }
 
 

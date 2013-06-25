@@ -72,8 +72,17 @@ class Ctz_cache extends Ctz_object
          $referer="__MWA_REFERER";
       }
       //$code=$uri.serialize($_REQUEST).$_SERVER['HTTP_REFERER'];
-      $code=$uri.serialize($_REQUEST).$referer;
+      //$code=$uri.serialize($_REQUEST).$referer;
+      $code=$uri.serialize($_REQUEST);
       $res=md5($code);
+      return $res;
+   }
+
+   public function get_key2 ($uri) {
+      $code=$uri.serialize($_REQUEST);
+      $code2=md5($code);
+      $res=substr($code2, 0, 3).'/'.$code2;
+
       return $res;
    }
 
@@ -82,7 +91,7 @@ class Ctz_cache extends Ctz_object
 
       if (!$this->active) return $res;
 
-      $file=$this->cachedir."/".$this->get_key($uri);
+      $file=$this->cachedir."/".$this->get_key2($uri);
       // get the updated info
       clearstatcache();
 
@@ -107,7 +116,7 @@ class Ctz_cache extends Ctz_object
       $res=false;
       if (!$this->active) return $res;
 
-      $file=$this->cachedir."/".$this->get_key($uri);
+      $file=$this->cachedir."/".$this->get_key2($uri);
       if (is_file($file)) {
          $res=@file_get_contents($file);
       }
@@ -119,7 +128,11 @@ class Ctz_cache extends Ctz_object
 
       if (!$this->active) return $res;
 
-      $file=$this->cachedir."/".$this->get_key($uri);
+      $file=$this->cachedir."/".$this->get_key2($uri);
+
+      $cachedir=dirname($file);
+      if (!is_dir($cachedir)) mkdir($cachedir);
+
       if (!ctz_var('cache-image-resource')) {
          $res=file_put_contents($file, $data);
       }

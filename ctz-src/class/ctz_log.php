@@ -25,7 +25,7 @@ class Ctz_log extends Ctz_object
    public function init () {
       $system=ctz_var('SYSTEM');
       
-      $system->logip();
+      //$system->logip();
 
       // register as global object
       ctz_set('LOG', $this);
